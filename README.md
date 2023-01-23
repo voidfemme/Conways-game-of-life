@@ -1,0 +1,5 @@
+# Conway's Game of Life
+
+There are several versions here, because I'm inexperienced with GitHub. The working
+version is `life3.cc`. I've also made a `print_grid.cc` which is my rough draft of an
+`ncurses` implementation.
