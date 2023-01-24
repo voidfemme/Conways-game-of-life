@@ -2,49 +2,21 @@
 #include <iomanip>
 #include <unistd.h>
 
-const int FIELD_LENGTH = 20;
-const int FIELD_SIZE = FIELD_LENGTH * FIELD_LENGTH;
+// Let the constants be defined by main.cc, so that they are global in scope. Maybe
+// even use a preprocessor statement...
+// TODO: define constants as macros or whatever they're called
 
 void FormatFunction();
 void PrintBoard(bool*);
 char PrintCell(bool);
 int NumNeighbors(bool*, int);
 
-int main()
+int RunSimulation(bool* life_board)
 {
     // Try to keep every action that happens to the board in the main function.
     // Everything hinges around this structure.
-    bool life_board[FIELD_SIZE];
     int cell_x, cell_y = 0;
     int simulation_steps = 0;
-
-    // initialize all the values to false.
-    for(int i=0; i<FIELD_SIZE; i++)
-    {
-        life_board[i] = false;
-    }
-    FormatFunction(); 
-
-    // Get initial state of the board from the user
-    while(cell_x != -1)
-    {
-        std::cout << "x, y: ";
-        std::cin >> cell_x;
-        if(cell_x == -1) { continue; }
-        std::cin >> cell_y;
-        if(cell_x * FIELD_LENGTH + cell_y >= 0 && cell_x * FIELD_LENGTH + cell_y <= FIELD_SIZE)
-        {
-            life_board[cell_y * FIELD_LENGTH + cell_x] = true;
-            FormatFunction();
-            PrintBoard(life_board);
-            FormatFunction();
-        }
-        else {
-            {
-                std::cout << "Out of bounds!\n";
-            }
-        }
-    }
 
     std::cout << "How many generations to simulate: ";
     std::cin >> simulation_steps;
@@ -121,11 +93,11 @@ void PrintBoard(bool life_board[])
 char PrintCell(bool cell)
 {
     if(cell) { 
-        return 'X';
+        return '#';
     }
     else
     {
-        return '.';
+        return ' ';
     }
 }
 
