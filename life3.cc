@@ -1,6 +1,10 @@
 #include <iostream>
 #include <iomanip>
+#ifdef _WIN32
+#include <Windows.h>
+#else
 #include <unistd.h>
+#endif
 
 // Let the constants be defined by main.cc, so that they are global in scope. Maybe
 // even use a preprocessor statement...
@@ -81,12 +85,7 @@ void PrintBoard(bool life_board[])
     for(int i=0; i<FIELD_LENGTH; i++)
     {
         for(int j=0; j<FIELD_LENGTH; j++){
-            if(life_board[i * FIELD_LENGTH + j]) {
-                mvaddch(j,i, '#');
-            } else {
-                mvaddch(j,i, ' ');
-            }
-            // std::cout << PrintCell(life_board[i * FIELD_LENGTH + j]) << " ";
+            std::cout << PrintCell(life_board[i * FIELD_LENGTH + j]) << " ";
         }
         std::cout << "|\n";
     }

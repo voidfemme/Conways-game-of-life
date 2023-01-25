@@ -77,6 +77,7 @@ int SetBoard() {
                 highlight.x_position = (highlight.x_position + FIELD_LENGTH) % FIELD_LENGTH;
                 break;
             case 10:
+                endwin();
                 RunSimulation(field);
                 break;
             case ' ':
