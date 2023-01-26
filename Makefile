@@ -16,4 +16,4 @@ run_simulation.o: run_simulation.cc
 	$(CC) $(CFLAGS) -c run_simulation.cc
 
 clean:
-	rm -f $(OBJECTS) life
+	rm -f *.o life.out $(OBJECTS)

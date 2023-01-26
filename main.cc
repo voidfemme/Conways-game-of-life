@@ -1,6 +1,6 @@
 #include <ncurses.h>
 #include <string>
-#include "print_grid.cc"
+#include "life.h"
 
 void SettingsMenu();
 void PrintMenu(std::string*, int, int);

@@ -1,6 +1,5 @@
-#include <iostream>
-#include <iomanip>
 #include <unistd.h>
+#include "life.h"
 
 // Let the constants be defined by main.cc, so that they are global in scope. Maybe
 // even use a preprocessor statement...
@@ -14,7 +13,6 @@ int RunSimulation(bool* life_board)
 {
     // Try to keep every action that happens to the board in the main function.
     // Everything hinges around this structure.
-    int cell_x, cell_y = 0;
     int simulation_steps = 20;
 
     for(int i=0; i<simulation_steps; i++)
@@ -60,9 +58,6 @@ int RunSimulation(bool* life_board)
         PrintBoard(life_board);
         
     }
-
-    std::cout << std::endl;
-
     return 0;
 }
 
