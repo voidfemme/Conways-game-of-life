@@ -3,10 +3,10 @@
 
 // TODO: Let the constants be defined by main.cc as macros(?) so that they are global in scope.
 
-const int FIELD_LENGTH = 20;
+const int FIELD_LENGTH = 25;
 const int FIELD_SIZE = FIELD_LENGTH * FIELD_LENGTH;
 
-#include "life3.cc"
+#include "run_simulation.cc"
 // define a "highlight" object, with an x value and a y value inside of it, so that I can write
 //  very readable code
 class GridPosition
@@ -77,7 +77,6 @@ int SetBoard() {
                 highlight.x_position = (highlight.x_position + FIELD_LENGTH) % FIELD_LENGTH;
                 break;
             case 10:
-                endwin();
                 RunSimulation(field);
                 break;
             case ' ':

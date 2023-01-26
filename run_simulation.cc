@@ -1,16 +1,11 @@
 #include <iostream>
 #include <iomanip>
-#ifdef _WIN32
-#include <Windows.h>
-#else
 #include <unistd.h>
-#endif
 
 // Let the constants be defined by main.cc, so that they are global in scope. Maybe
 // even use a preprocessor statement...
 // TODO: define constants as macros or whatever they're called
 
-void FormatFunction();
 void PrintBoard(bool*);
 char PrintCell(bool);
 int NumNeighbors(bool*, int);
@@ -20,10 +15,7 @@ int RunSimulation(bool* life_board)
     // Try to keep every action that happens to the board in the main function.
     // Everything hinges around this structure.
     int cell_x, cell_y = 0;
-    int simulation_steps = 0;
-
-    std::cout << "How many generations to simulate: ";
-    std::cin >> simulation_steps;
+    int simulation_steps = 20;
 
     for(int i=0; i<simulation_steps; i++)
     {
@@ -74,36 +66,25 @@ int RunSimulation(bool* life_board)
     return 0;
 }
 
-void FormatFunction()
-{
-    std::cout << std::setw(32) << std::setfill('-') << " " << std::endl;
-}
-
 void PrintBoard(bool life_board[])
 {
-    FormatFunction();
     for(int i=0; i<FIELD_LENGTH; i++)
     {
         for(int j=0; j<FIELD_LENGTH; j++){
-            std::cout << PrintCell(life_board[i * FIELD_LENGTH + j]) << " ";
+            if(i >=0 && i < FIELD_LENGTH && j >= 0 && j < FIELD_LENGTH) {
+                // Print the grid.
+                if(life_board[i * FIELD_LENGTH + j]) {
+                    mvaddch(j,i,'#');
+                } else {
+                    mvaddch(j,i,' ');
+                }
+            }
         }
-        std::cout << "|\n";
     }
-    FormatFunction();
-    std::cout.flush();
     sleep(1);
+    refresh();
 }
 
-char PrintCell(bool cell)
-{
-    if(cell) { 
-        return '#';
-    }
-    else
-    {
-        return ' ';
-    }
-}
 
 int NumNeighbors(bool life_board[], int cell_index)
 {

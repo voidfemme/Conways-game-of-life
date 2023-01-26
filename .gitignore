@@ -32,7 +32,6 @@
 *.app
 
 # Other Files
-trash_bin
+trash_bin/*
 *.bak
 *.old
-
