@@ -4,7 +4,7 @@ CFLAGS = -Wall -g -lncurses
 OBJECTS = main.o print_grid.o run_simulation.o 
 
 life: $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o life
+	$(CC) $(CFLAGS) $(OBJECTS) -o life.out
 
 main.o: main.cc
 	$(CC) $(CFLAGS) -c main.cc
@@ -16,4 +16,4 @@ run_simulation.o: run_simulation.cc
 	$(CC) $(CFLAGS) -c run_simulation.cc
 
 clean:
-	rm -f *.o life.out $(OBJECTS)
+	rm -f *.o $(OBJECTS)
