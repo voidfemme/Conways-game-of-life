@@ -1,5 +1,5 @@
 # Conway's Game of Life
 
 ## Installation:
-(I don't know how to use a Makefile for now, so....)
-Basically just compile main.cc with the ncurses flag, and it should produce a binary no problem
+just run `git clone` and then the address of this repository, and then run
+`make` and you should be good to go!
