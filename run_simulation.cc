@@ -73,7 +73,7 @@ void PrintBoard(bool life_board[])
             }
         }
     }
-    sleep(1);
+    Timer();
     refresh();
 }
 
@@ -99,4 +99,9 @@ int NumNeighbors(bool life_board[], int cell_index)
     }
 
     return num_neighbors;
+}
+
+void Timer() {
+    std::chrono::milliseconds quarter_second = std::chrono::milliseconds(250);
+    std::this_thread::sleep_for(quarter_second);
 }
