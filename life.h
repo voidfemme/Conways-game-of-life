@@ -9,4 +9,4 @@ void PrintBoard(bool*);
 char PrintCell(bool);
 int NumNeighbors(bool*, int);
 int RunSimulation(bool*);
-int SetBoard();
+int SetField();

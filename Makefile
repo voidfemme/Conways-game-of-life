@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g -lncurses
 
-OBJECTS = main.o print_grid.o run_simulation.o 
+OBJECTS = main.o set_field.o run_simulation.o 
 
 life: $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) -o life.out
@@ -9,8 +9,8 @@ life: $(OBJECTS)
 main.o: main.cc
 	$(CC) $(CFLAGS) -c main.cc
 
-print_grid.o: print_grid.cc
-	$(CC) $(CFLAGS) -c print_grid.cc
+print_grid.o: set_field.cc
+	$(CC) $(CFLAGS) -c set_field.cc
 
 run_simulation.o: run_simulation.cc
 	$(CC) $(CFLAGS) -c run_simulation.cc

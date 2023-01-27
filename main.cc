@@ -54,7 +54,7 @@ int main() {
                 } else if(highlight == 1) {
                     clear();
                     refresh();
-                    SetBoard();
+                    SetField();
                     break;
                 }
             default:
