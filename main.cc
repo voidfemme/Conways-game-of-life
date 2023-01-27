@@ -19,7 +19,7 @@ int main() {
     curs_set(0); // Hide the cursor
 
     int choice;
-    int highlight = 0;
+    int highlight = 1;
 
     while(1) {
         PrintMenu(menu_options, 4, highlight);
@@ -28,13 +28,13 @@ int main() {
         switch(choice) {
             case KEY_UP:
                 highlight--;
-                if(highlight == -1)
-                    highlight = 0;
+                if(highlight == 0)
+                    highlight = 4;
                 break;
             case KEY_DOWN:
                 highlight++;
                 if(highlight == 4)
-                    highlight = 2;
+                    highlight = 1;
                 break;
             case KEY_STAB:
                 highlight++;
