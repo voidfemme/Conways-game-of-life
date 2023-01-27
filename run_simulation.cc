@@ -1,10 +1,6 @@
 #include <unistd.h>
 #include "life.h"
 
-// Let the constants be defined by main.cc, so that they are global in scope. Maybe
-// even use a preprocessor statement...
-// TODO: define constants as macros or whatever they're called
-
 void PrintBoard(bool*);
 char PrintCell(bool);
 int NumNeighbors(bool*, int);

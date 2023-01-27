@@ -4,9 +4,12 @@
 
 void SettingsMenu();
 void PrintMenu(std::string*, int, int);
+void SetFieldSize();
+void SetNumberOfGenerations();
 
 int main() {
-    std::string menu_options[4] = {
+    int number_of_options = 4;
+    std::string menu_options[number_of_options] = {
         "Welcome to the game of life!",
         "1. Start game",
         "2. Set game settings",
@@ -19,39 +22,39 @@ int main() {
     curs_set(0); // Hide the cursor
 
     int choice;
-    int highlight = 1;
+    int highlight_position = 1;
 
     while(1) {
-        PrintMenu(menu_options, 4, highlight);
+        PrintMenu(menu_options, number_of_options, highlight_position);
 
         choice = getch();
         switch(choice) {
             case KEY_UP:
-                highlight--;
-                if(highlight == 0)
-                    highlight = 4;
+                highlight_position--;
+                if(highlight_position == 0)
+                    highlight_position = 4;
                 break;
             case KEY_DOWN:
-                highlight++;
-                if(highlight == 4)
-                    highlight = 1;
+                highlight_position++;
+                if(highlight_position == 4)
+                    highlight_position = 1;
                 break;
             case KEY_STAB:
-                highlight++;
-                if(highlight == 4)
-                    highlight = 2;
+                highlight_position++;
+                if(highlight_position == 4)
+                    highlight_position = 2;
                 break;
             case 10:
-                if(highlight == 3) {
+                if(highlight_position == 3) {
                     endwin();
                     return 0;
-                } else if(highlight == 2) {
+                } else if(highlight_position == 2) {
                     refresh();
                     clear();
                     refresh();
                     SettingsMenu();
                     break;
-                } else if(highlight == 1) {
+                } else if(highlight_position == 1) {
                     clear();
                     refresh();
                     SetField();
@@ -71,54 +74,69 @@ int main() {
 // What if I was to pass the string of options to this function, and then an
 // array of commands?
 void SettingsMenu() {
-    std::string menu_options[3] = {
-        "1. Set board size: ",
+    int number_of_options = 4;
+    std::string menu_options[number_of_options] = {
+        "Settings Menu",
+        "1. Set field size: ",
         "2. Set Number of generations: ",
         "3. Main Menu",
     };
     
     int choice;
-    int highlight = 0;
+    int highlight_position = 1;
 
     while(1) {
         clear();
         refresh();
-        for(int i=0; i<3; i++) {
-            if (i == highlight) {
-                attron(A_REVERSE);
-            }
-            mvprintw(i + 1, 1, menu_options[i].c_str());
-            attroff(A_REVERSE);
-        }
+        PrintMenu(menu_options, number_of_options, highlight_position);
         
         choice = getch();
         switch(choice) {
             case KEY_UP:
-                highlight--;
-                if(highlight == -1)
-                    highlight = 2;
+                highlight_position--;
+                if(highlight_position == 0)
+                    highlight_position = 3;
                 break;
             case KEY_DOWN:
-                highlight++;
-                if(highlight == 3)
-                    highlight = 0;
+                highlight_position++;
+                if(highlight_position == 4)
+                    highlight_position = 1;
                 break;
             case 10:
-                if(highlight == 2) {
+                if(highlight_position == 1) {
+                    clear();
+                    refresh();
+                    SetFieldSize();
+                } else if (highlight_position == 2) {
+                    clear();
+                    refresh();
+                    SetNumberOfGenerations();
+                } else if (highlight_position == 3) {
                     clear();
                     refresh();
                     return;
                 }
         }
     }
-    
 }
 
-void PrintMenu(std::string options[], int number_of_options, int highlight) {
-    for(int i = 0; i < number_of_options; i++) { // loop through menu_options
-        if(i == highlight) // starts at 0, and then gets changed by the user's direction choice
+void SetFieldSize() {
+    mvprintw(1, 1, "Set field size");
+    mvprintw(2, 1, "Enter the number of rows: ");
+    getch();
+}
+
+void SetNumberOfGenerations() {
+    mvprintw(2, 1, "Enter the number of generations: ");
+    getch();
+}
+
+void PrintMenu(std::string options[], int number_of_options, int highlight_position) {
+    // loop through menu_options
+    for(int i = 0; i < number_of_options; i++) { 
+        if(i == highlight_position)
             attron(A_REVERSE);
-        mvprintw(i + 1, 1, options[i].c_str()); // we have to pass a .c_str() version 
+        mvprintw(i + 1, 1, options[i].c_str());
         attroff(A_REVERSE);
     }
 }

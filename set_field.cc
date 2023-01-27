@@ -2,7 +2,7 @@
 #include <string>
 #include "life.h"
 
-// define a "highlight" object, with an x value and a y value inside of it, so that I can write
+// define a "highlight_position" object, with an x value and a y value inside of it, so that I can write
 //  very readable code
 class GridPosition
 {
@@ -19,7 +19,7 @@ int GridPosition::FieldPosition() {
 int SetField() {
 
     int choice;
-    GridPosition highlight;
+    GridPosition highlight_position;
 
 //  1. a list structure of menu items
     bool field[FIELD_SIZE];
@@ -37,7 +37,7 @@ int SetField() {
             for(int j=0; j<FIELD_LENGTH; j++) {
                 if(i >= 0 && i < FIELD_LENGTH && j >= 0 && j < FIELD_LENGTH) {
                     // Print the grid. 
-                    if(i == highlight.x_position && j == highlight.y_position) {
+                    if(i == highlight_position.x_position && j == highlight_position.y_position) {
                         attron(A_REVERSE);
                     } 
                     if(field[FIELD_LENGTH * j + i] == true) {
@@ -49,37 +49,37 @@ int SetField() {
                 }
             }
         }
-        mvprintw(FIELD_LENGTH + 2, 1, "x: %i", highlight.x_position);
-        mvprintw(FIELD_LENGTH + 3, 1, "y: %i", highlight.y_position);
-        mvprintw(FIELD_LENGTH + 4, 1, "1-d address: %i", highlight.FieldPosition());
+        mvprintw(FIELD_LENGTH + 2, 1, "x: %i", highlight_position.x_position);
+        mvprintw(FIELD_LENGTH + 3, 1, "y: %i", highlight_position.y_position);
+        mvprintw(FIELD_LENGTH + 4, 1, "1-d address: %i", highlight_position.FieldPosition());
         mvprintw(FIELD_LENGTH + 5, 1, "arrow keys to move, <enter> to start the sim, \"q\" to return to the main menu.");
 
         choice = getch();
         switch (choice) {
             case KEY_UP:
-                highlight.y_position--;
-                highlight.y_position = (highlight.y_position + FIELD_LENGTH) % FIELD_LENGTH;
+                highlight_position.y_position--;
+                highlight_position.y_position = (highlight_position.y_position + FIELD_LENGTH) % FIELD_LENGTH;
                 break;
             case KEY_DOWN:
-                highlight.y_position++;
-                highlight.y_position = (highlight.y_position + FIELD_LENGTH) % FIELD_LENGTH;
+                highlight_position.y_position++;
+                highlight_position.y_position = (highlight_position.y_position + FIELD_LENGTH) % FIELD_LENGTH;
                 break;
             case KEY_LEFT:
-                highlight.x_position--;
-                highlight.x_position = (highlight.x_position + FIELD_LENGTH) % FIELD_LENGTH;
+                highlight_position.x_position--;
+                highlight_position.x_position = (highlight_position.x_position + FIELD_LENGTH) % FIELD_LENGTH;
                 break;
             case KEY_RIGHT:
-                highlight.x_position++;
-                highlight.x_position = (highlight.x_position + FIELD_LENGTH) % FIELD_LENGTH;
+                highlight_position.x_position++;
+                highlight_position.x_position = (highlight_position.x_position + FIELD_LENGTH) % FIELD_LENGTH;
                 break;
             case 10:
                 RunSimulation(field);
                 break;
             case ' ':
-                if(field[highlight.FieldPosition()]) {
-                    field[highlight.FieldPosition()] = false;
+                if(field[highlight_position.FieldPosition()]) {
+                    field[highlight_position.FieldPosition()] = false;
                 } else {
-                    field[highlight.FieldPosition()] = true;
+                    field[highlight_position.FieldPosition()] = true;
                 }
                 break;
             case 'q':
