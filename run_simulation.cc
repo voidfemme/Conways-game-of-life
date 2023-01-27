@@ -1,21 +1,24 @@
 #include "life.h"
 
-void PrintBoard(bool*);
+void printField(bool*);
 char PrintCell(bool);
 int NumNeighbors(bool*, int);
 
-int RunSimulation(bool* life_board) {
-    clear();
-    refresh();
+int RunSimulation(bool* field) {
 
-    // Try to keep every action that happens to the board in the main function.
+    printField(field);
+    // Try to keep every action that happens to the field in the main function.
     // Everything hinges around this structure.
     int simulation_steps = 20;
-    int generation = 0;
+    int generation = 1;
 
     for(int i=0; i<simulation_steps; i++) {
+        clear();
+        printField(field);
+        refresh();
         mvprintw(FIELD_LENGTH + 2, 1, "Generation: %i", generation);
         generation++;
+
         // Analyse and save the new state of the board
         bool next_board_state[FIELD_SIZE];
         for(int i=0; i<FIELD_SIZE; i++) {
@@ -25,9 +28,9 @@ int RunSimulation(bool* life_board) {
         for(int i=0; i<FIELD_SIZE; i++) {
 
             // apply rules
-            int num_neighbors = NumNeighbors(life_board, i);
+            int num_neighbors = NumNeighbors(field, i);
             
-            if(life_board[i])
+            if(field[i])
             {
                 if(num_neighbors < 2)
                     next_board_state[i] = false;
@@ -36,7 +39,7 @@ int RunSimulation(bool* life_board) {
                 else if(num_neighbors == 2 || num_neighbors == 3)
                     next_board_state[i] = true;
             }
-            if(!life_board[i])
+            if(!field[i])
             {
                 if(num_neighbors == 3)
                     next_board_state[i] = true;
@@ -50,22 +53,20 @@ int RunSimulation(bool* life_board) {
         // update the current state to the next generation
         for(int i=0; i<FIELD_SIZE; i++)
         {
-            life_board[i] = next_board_state[i];
+            field[i] = next_board_state[i];
         }
-        PrintBoard(life_board);
-        
     }
     return 0;
 }
 
-void PrintBoard(bool life_board[])
+void printField(bool field[])
 {
     for(int i=0; i<FIELD_LENGTH; i++)
     {
         for(int j=0; j<FIELD_LENGTH; j++){
             if(i >=0 && i < FIELD_LENGTH && j >= 0 && j < FIELD_LENGTH) {
                 // Print the grid.
-                if(life_board[i * FIELD_LENGTH + j]) {
+                if(field[i * FIELD_LENGTH + j]) {
                     mvaddch(j,i,'#');
                 } else {
                     mvaddch(j,i,' ');
@@ -78,7 +79,7 @@ void PrintBoard(bool life_board[])
 }
 
 
-int NumNeighbors(bool life_board[], int cell_index)
+int NumNeighbors(bool field[], int cell_index)
 {
     int num_neighbors = 0;
     // create an array with possible values.
@@ -91,7 +92,7 @@ int NumNeighbors(bool life_board[], int cell_index)
             {
                 continue;
             }
-            if(life_board[(cell_index + i * FIELD_LENGTH + j + FIELD_SIZE) % FIELD_SIZE])
+            if(field[(cell_index + i * FIELD_LENGTH + j + FIELD_SIZE) % FIELD_SIZE])
             {
                 num_neighbors++;
             }

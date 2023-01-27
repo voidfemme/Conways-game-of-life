@@ -4,8 +4,8 @@
 #include <chrono>
 #include <thread>
 
-#define FIELD_LENGTH 30
-#define FIELD_SIZE 900
+#define FIELD_LENGTH 40
+#define FIELD_SIZE 1600
 
 void PrintBoard(bool*);
 char PrintCell(bool);

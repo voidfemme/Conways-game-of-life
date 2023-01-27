@@ -40,7 +40,7 @@ int SetField() {
                     if(i == highlight_position.x_position && j == highlight_position.y_position) {
                         attron(A_REVERSE);
                     } 
-                    if(field[FIELD_LENGTH * j + i] == true) {
+                    if(field[FIELD_LENGTH * j + i]) {
                         mvaddch(j,i, '#');
                     } else {
                         mvaddch(j,i, ' ');
@@ -73,6 +73,8 @@ int SetField() {
                 highlight_position.x_position = (highlight_position.x_position + FIELD_LENGTH) % FIELD_LENGTH;
                 break;
             case 10:
+                clear();
+                refresh();
                 RunSimulation(field);
                 break;
             case ' ':
