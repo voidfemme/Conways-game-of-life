@@ -121,8 +121,13 @@ void SettingsMenu() {
 }
 
 void SetFieldSize() {
+    char str[80];
     mvprintw(1, 1, "Set field size");
     mvprintw(2, 1, "Enter the number of rows: ");
+    echo();
+    getstr(str);
+    noecho();
+    mvprintw(4, 1, "You entered %s", str);
     getch();
 }
 

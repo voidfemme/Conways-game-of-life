@@ -1,27 +1,28 @@
-#include <unistd.h>
 #include "life.h"
 
 void PrintBoard(bool*);
 char PrintCell(bool);
 int NumNeighbors(bool*, int);
 
-int RunSimulation(bool* life_board)
-{
+int RunSimulation(bool* life_board) {
+    clear();
+    refresh();
+
     // Try to keep every action that happens to the board in the main function.
     // Everything hinges around this structure.
     int simulation_steps = 20;
+    int generation = 0;
 
-    for(int i=0; i<simulation_steps; i++)
-    {
+    for(int i=0; i<simulation_steps; i++) {
+        mvprintw(FIELD_LENGTH + 2, 1, "Generation: %i", generation);
+        generation++;
         // Analyse and save the new state of the board
         bool next_board_state[FIELD_SIZE];
-        for(int i=0; i<FIELD_SIZE; i++)
-        {
+        for(int i=0; i<FIELD_SIZE; i++) {
             next_board_state[i] = 0;
         }
 
-        for(int i=0; i<FIELD_SIZE; i++)
-        {
+        for(int i=0; i<FIELD_SIZE; i++) {
 
             // apply rules
             int num_neighbors = NumNeighbors(life_board, i);
