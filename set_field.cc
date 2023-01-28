@@ -19,6 +19,7 @@ int GridPosition::FieldPosition() {
 int SetField() {
 
     int choice;
+    int generation = 1;
     GridPosition highlight_position;
 
 //  1. a list structure of menu items
@@ -41,14 +42,15 @@ int SetField() {
                         attron(A_REVERSE);
                     } 
                     if(field[FIELD_LENGTH * j + i]) {
-                        mvaddch(j,i, '#');
+                        mvaddch(j,i * 2, '#');
                     } else {
-                        mvaddch(j,i, ' ');
+                        mvaddch(j,i * 2, ' ');
                     }
                     attroff(A_REVERSE);
                 }
             }
         }
+        mvprintw(FIELD_LENGTH + 1, 1, "Generation: %i", generation);
         mvprintw(FIELD_LENGTH + 2, 1, "x: %i", highlight_position.x_position);
         mvprintw(FIELD_LENGTH + 3, 1, "y: %i", highlight_position.y_position);
         mvprintw(FIELD_LENGTH + 4, 1, "1-d address: %i", highlight_position.FieldPosition());
@@ -75,7 +77,10 @@ int SetField() {
             case 10:
                 clear();
                 refresh();
-                RunSimulation(field);
+                RunSimulation(field, generation);
+                generation--;
+                clear();
+                refresh();
                 break;
             case ' ':
                 if(field[highlight_position.FieldPosition()]) {

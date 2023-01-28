@@ -4,20 +4,19 @@ void printField(bool*);
 char PrintCell(bool);
 int NumNeighbors(bool*, int);
 
-int RunSimulation(bool* field) {
+int RunSimulation(bool* field, int& generation) {
 
     printField(field);
     // Try to keep every action that happens to the field in the main function.
     // Everything hinges around this structure.
     int simulation_steps = 20;
-    int generation = 1;
 
     for(int i=0; i<simulation_steps; i++) {
         clear();
+        mvprintw(FIELD_LENGTH + 3, 1, "Generation: %i", generation);
+        generation++;
         printField(field);
         refresh();
-        mvprintw(FIELD_LENGTH + 2, 1, "Generation: %i", generation);
-        generation++;
 
         // Analyse and save the new state of the board
         bool next_board_state[FIELD_SIZE];
@@ -67,9 +66,9 @@ void printField(bool field[])
             if(i >=0 && i < FIELD_LENGTH && j >= 0 && j < FIELD_LENGTH) {
                 // Print the grid.
                 if(field[i * FIELD_LENGTH + j]) {
-                    mvaddch(j,i,'#');
+                    mvaddch(i,j * 2,'#');
                 } else {
-                    mvaddch(j,i,' ');
+                    mvaddch(i,j * 2,' ');
                 }
             }
         }

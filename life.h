@@ -10,6 +10,6 @@
 void PrintBoard(bool*);
 char PrintCell(bool);
 int NumNeighbors(bool*, int);
-int RunSimulation(bool*);
+int RunSimulation(bool*,int&);
 int SetField();
 void Timer();
